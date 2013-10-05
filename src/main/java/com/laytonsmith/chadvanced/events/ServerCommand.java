@@ -25,12 +25,12 @@ import java.util.Map;
  * @author Layton
  */
 public class ServerCommand {
-    
+
     @event
     public void triggerServerCommand(MCConsoleCommandEvent event){
         EventUtils.TriggerListener(Driver.SERVER_COMMAND, "server_command", event);
     }
-    
+
     @api
     public static class server_command extends AbstractEvent {
 
@@ -99,7 +99,11 @@ public class ServerCommand {
 
                 StringHandling.parse_args pa = new StringHandling.parse_args();
                 CArray ca = (CArray)pa.exec(Target.UNKNOWN, null, new CString(event.getCommand(), Target.UNKNOWN));
-                map.put("prefix", new CString(ca.get(0).val(), Target.UNKNOWN));
+                if (ca.size() == 0) {
+                    map.put("prefix", new CString("", Target.UNKNOWN));
+                } else {
+                    map.put("prefix", new CString(ca.get(0).val(), Target.UNKNOWN));
+                }
 
                 return map;
             } else {
