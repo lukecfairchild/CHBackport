@@ -5,7 +5,7 @@ import com.laytonsmith.PureUtilities.Version;
 import com.laytonsmith.core.extensions.AbstractExtension;
 import com.laytonsmith.core.extensions.MSExtension;
 
-@MSExtension("CHAdvnaced")
+@MSExtension("CHAdvanced")
 public class CHAdvanced extends AbstractExtension {
 
     public Version getVersion() {
@@ -21,7 +21,4 @@ public class CHAdvanced extends AbstractExtension {
     public void onShutdown() {
 	System.out.println("CHAdvanced unloaded: "  + getVersion() + " - LadyCailin");
     }
-    
-    
-    
 }
