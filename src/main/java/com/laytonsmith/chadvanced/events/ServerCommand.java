@@ -69,7 +69,7 @@ public class ServerCommand {
                     StringHandling.parse_args pa = new StringHandling.parse_args();
                     CArray ca = (CArray)pa.exec(Target.UNKNOWN, null, new CString(command, Target.UNKNOWN));
                     if(ca.size() > 0){
-                        if(!ca.get(0).val().equals(prefilter.get("prefix").val())){
+                        if(!ca.get(0, Target.UNKNOWN).val().equals(prefilter.get("prefix").val())){
                             return false;
                         }
                     } else {
@@ -81,9 +81,10 @@ public class ServerCommand {
             return false;
         }
 
-        public BindableEvent convert(CArray manualObject) {
-            MCPlayer player = Static.GetPlayer(manualObject.get("player"), Target.UNKNOWN);
-            String command = manualObject.get("command").nval();
+	@Override
+        public BindableEvent convert(CArray manualObject, Target t) {
+            MCPlayer player = Static.GetPlayer(manualObject.get("player", t), t);
+            String command = manualObject.get("command", t).nval();
 
             BindableEvent e = EventBuilder.instantiate(MCConsoleCommandEvent.class,
                 player, command);
@@ -102,7 +103,7 @@ public class ServerCommand {
                 if (ca.size() == 0) {
                     map.put("prefix", new CString("", Target.UNKNOWN));
                 } else {
-                    map.put("prefix", new CString(ca.get(0).val(), Target.UNKNOWN));
+                    map.put("prefix", new CString(ca.get(0, Target.UNKNOWN).val(), Target.UNKNOWN));
                 }
 
                 return map;
