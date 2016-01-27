@@ -9,10 +9,10 @@ import com.laytonsmith.core.constructs.CString;
 import com.laytonsmith.core.constructs.Construct;
 import com.laytonsmith.core.constructs.Target;
 import com.laytonsmith.core.environments.Environment;
+import com.laytonsmith.core.exceptions.CRE.CREIOException;
 import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.functions.AbstractFunction;
 import com.laytonsmith.core.functions.Exceptions;
-import com.laytonsmith.core.functions.Exceptions.ExceptionType;
 import java.io.File;
 
 /**
@@ -27,8 +27,8 @@ public class TmpFile {
 	
 	@api public static class tmp_file_list_dir extends AbstractFunction {
 
-		public Exceptions.ExceptionType[] thrown() {
-			return new ExceptionType[]{Exceptions.ExceptionType.IOException};
+		public Class[] thrown() {
+			return new Class[]{CREIOException.class};
 		}
 
 		public boolean isRestricted() {
@@ -43,11 +43,11 @@ public class TmpFile {
 			CArray ret = new CArray(t);
 			File path = new File(t.file(), args[0].val());
 			if(!path.isDirectory()){
-				throw new ConfigRuntimeException("Path is not a directory.", ExceptionType.IOException, t);
+				throw new CREIOException("Path is not a directory.", t);
 			}
 			String[] list = path.list();
 			for(String s : list){
-				ret.push(new CString(s, t));
+				ret.push(new CString(s, t), t);
 			}
 			return ret;
 		}

@@ -3,30 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sk89q</groupId>
 	<artifactId>chadvanced</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>CHAdvanced</name>
 	<description>CHAdvanced is an extension to CommandHelper, which contains more advanced, possibly dangerous extension points.</description>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
-		<name>Layton Smith</name>
+		<name>CommandHelper Team</name>
 		<url>http://wiki.sk89q.com/CommandHelper</url>
 	</organization>
-	<developers>
-		<developer>
-			<id>layton</id>
-			<name>Layton Smith</name>
-			<email>gmail: laytonsmith14</email>
-			<url>http://www.laytonsmith.com#donations</url>
-			<organization>Enable IC</organization>
-			<organizationUrl>http://www.laytonsmith.com</organizationUrl>
-			<roles>
-				<role>project manager</role>
-				<role>developer</role>
-				<role>tester</role>
-			</roles>
-			<timezone>-6</timezone>
-		</developer>
-	</developers>
 	<contributors>
 	</contributors>
 	<issueManagement>
@@ -46,8 +30,8 @@
 	</licenses>
 	<scm>
 		<connection>scm:git:git://github.com/wraithguard01/chadvanced.git</connection>
-		<url>https://github.com/wraithguard01/chadvanced</url>
-		<developerConnection>scm:git:git@github.com:wraithguard01/chadvanced.git</developerConnection>
+		<url>https://github.com/LadyCailin/chadvanced</url>
+		<developerConnection>scm:git:git@github.com:LadyCailin/chadvanced.git</developerConnection>
 	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,7 +67,7 @@
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>commandhelper</artifactId>
-			<version>3.3.1-SNAPSHOT</version>
+			<version>3.3.2-SNAPSHOT</version>
 		</dependency>
         
         
