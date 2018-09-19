@@ -1,3 +1,7 @@
+THIS EXTENSION IS NO LONGER BEING MAINTAINED, AND SHOULD NOT BE USED.
+
+The server\_command event is added to the CH core, and is available without extension. The tmp_file_list_dir function is available in the CHFiles extension, which can be found [here](https://github.com/itstake/CHFiles) and [here](https://letsbuild.net/jenkins/job/CHFiles/).
+
 # Functions
 ## array tmp\_file\_list\_dir(path):
 Returns a list of files and folders in the specified directory. If the specified path isn't a directory, an IOException is thrown.
