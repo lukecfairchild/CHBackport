@@ -1,4 +1,4 @@
-package com.kookster.backport;
+package com.kookster.chbackport;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
