@@ -24,7 +24,7 @@ import java.util.Map;
  *
  * @author Layton
  */
-public class ServerCommand {
+public class Events {
 
     @event
     public void triggerServerCommand(MCConsoleCommandEvent event){
