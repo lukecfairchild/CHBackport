@@ -1,4 +1,4 @@
-package com.laytonsmith.chadvanced.events;
+package com.kookster.chbackport;
 
 import com.laytonsmith.abstraction.MCPlayer;
 import com.laytonsmith.abstraction.events.MCConsoleCommandEvent;
