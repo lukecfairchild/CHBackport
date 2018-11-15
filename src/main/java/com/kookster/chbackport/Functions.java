@@ -30,25 +30,8 @@ import com.laytonsmith.core.exceptions.FunctionReturnException;
 import com.laytonsmith.core.constructs.CVoid;
 import com.laytonsmith.core.CHVersion;
 
-import com.laytonsmith.core.constructs.Auto;
 import com.laytonsmith.core.constructs.CArray;
-import com.laytonsmith.core.constructs.CBoolean;
 import com.laytonsmith.core.constructs.CByteArray;
-import com.laytonsmith.core.constructs.CClassType;
-import com.laytonsmith.core.constructs.CDouble;
-import com.laytonsmith.core.constructs.CFunction;
-import com.laytonsmith.core.constructs.CIClosure;
-import com.laytonsmith.core.constructs.CInt;
-import com.laytonsmith.core.constructs.CKeyword;
-import com.laytonsmith.core.constructs.CLabel;
-import com.laytonsmith.core.constructs.CMutablePrimitive;
-import com.laytonsmith.core.constructs.CSlice;
-import com.laytonsmith.core.constructs.CString;
-import com.laytonsmith.core.constructs.Construct;
-import com.laytonsmith.core.constructs.IVariable;
-import com.laytonsmith.core.constructs.IVariableList;
-import com.laytonsmith.core.constructs.InstanceofUtil;
-import com.laytonsmith.core.constructs.Target;
 
 import java.io.IOException;
 
