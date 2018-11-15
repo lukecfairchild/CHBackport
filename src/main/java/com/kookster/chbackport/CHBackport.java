@@ -1,4 +1,4 @@
-package com.kookster.chbackport
+package com.kookster.chbackport;
 
 import com.laytonsmith.PureUtilities.SimpleVersion;
 import com.laytonsmith.PureUtilities.Version;
