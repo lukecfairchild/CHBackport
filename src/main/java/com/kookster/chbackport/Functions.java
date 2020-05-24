@@ -75,7 +75,7 @@ public class Functions {
 			} else {
 				sender = Static.GetPlayer(args[0].val(), t);
 			}
-			cEnv.SetCommandSender(sender, t);
+			cEnv.SetCommandSender(sender);
 
 			String originalLabel = gEnv.GetLabel();
 			if(!(args[1] instanceof CNull)) {
