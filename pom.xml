@@ -35,8 +35,8 @@
 	<repositories>
 		<!-- Repository for other dependencies of SK's -->
 		<repository>
-			<id>sk89q-mvn2</id>
-			<url>http://mvn2.sk89q.com/repo</url>
+			<id>enginehub-maven</id>
+			<url>https://maven.enginehub.org/repo/</url>
 		</repository>
 
 		<!-- Repository for Bukkit -->
