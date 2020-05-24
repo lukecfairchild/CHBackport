@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sk89q</groupId>
 	<artifactId>chbackport</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<name>CHBackport</name>
 	<description>CHBackport is an extension to CommandHelper, which adds a event and function to older versions of commandhelper.</description>
 	<inceptionYear>2018</inceptionYear>
