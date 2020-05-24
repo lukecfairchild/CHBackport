@@ -8,7 +8,6 @@ import com.laytonsmith.core.exceptions.CRE.CREThrowable;
 import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.functions.AbstractFunction;
 
-import com.laytonsmith.core.constructs.CNull;
 import com.laytonsmith.core.constructs.CClosure;
 import com.laytonsmith.core.exceptions.CRE.CRECastException;
 import com.laytonsmith.core.environments.CommandHelperEnvironment;
@@ -22,50 +21,53 @@ import com.laytonsmith.core.CHVersion;
 import java.util.Arrays;
 
 
+
 public class Functions {
-	@api(environments = CommandHelperEnvironment.class)
-	public static class executeas extends AbstractFunction {
 
-		public String getName() {
-			return "executeas";
-		}
+    @api(environments = CommandHelperEnvironment.class)
+    public static class executeas extends AbstractFunction {
 
-		public Integer[] numArgs() {
-			return new Integer[]{Integer.MAX_VALUE};
-		}
+        public String getName() {
+            return "executeas";
+        }
 
-		public String docs() {
-			return "mixed {player, label, [values...,] closure} Executes the given closure in the context of a given"
-					+ " player. A closure that runs player(), for instance, would return the specified player's name."
-					+ " The label argument sets the permission label that this closure will use. If null is given,"
-					+ " the current label will be used, like with execute().";
-		}
+        public Integer[] numArgs() {
+            return new Integer[]{Integer.MAX_VALUE};
+        }
 
-		public Class<? extends CREThrowable>[] thrown() {
-			return new Class[]{CRECastException.class};
-		}
+        public String docs() {
+            return "mixed {player, label, [values...,] closure} Executes the given closure in the context of a given"
+                    + " player. A closure that runs player(), for instance, would return the specified player's name."
+                    + " The label argument sets the permission label that this closure will use. If null is given,"
+                    + " the current label will be used, like with execute().";
+        }
 
-		public Boolean runAsync() {
-			return null;
-		}
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[]{CRECastException.class};
+        }
 
-		public boolean isRestricted() {
-			return true;
-		}
+        public Boolean runAsync() {
+            return null;
+        }
 
-		@Override
-		public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-			if(!(args[args.length - 1].isInstanceOf(CClosure.TYPE))) {
-				throw new CRECastException("Only a closure (created from the closure function) can be sent to executeas()", t);
-			}
-			Mixed[] vals = new Mixed[args.length - 3];
-			System.arraycopy(args, 2, vals, 0, args.length - 3);
-			CClosure closure = (CClosure) args[args.length - 1];
-			CommandHelperEnvironment cEnv = closure.getEnv().getEnv(CommandHelperEnvironment.class);
-			GlobalEnv gEnv = closure.getEnv().getEnv(GlobalEnv.class);
+        public boolean isRestricted() {
+            return true;
+        }
 
-			MCCommandSender originalSender = cEnv.GetCommandSender();
+        @Override
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            if(!(args[args.length - 1] instanceof CClosure)) {
+                throw new CRECastException("Only a closure (created from the closure function) can be sent to executeas()", t);
+            }
+            Construct[] vals = new Construct[args.length - 3];
+            System.arraycopy(args, 2, vals, 0, args.length - 3);
+            CClosure closure = (CClosure) args[args.length - 1];
+            CommandHelperEnvironment cEnv = closure.getEnv().getEnv(CommandHelperEnvironment.class);
+            GlobalEnv gEnv = closure.getEnv().getEnv(GlobalEnv.class);
+
+            MCCommandSender originalSender = cEnv.GetCommandSender();
 			MCCommandSender sender;
+
 			if(args[0].val().equals(Static.getConsoleName())) {
 				sender = Static.getServer().getConsole();
 			} else if (args[0] instanceof CNull) {
@@ -73,24 +75,27 @@ public class Functions {
 			} else {
 				sender = Static.GetPlayer(args[0].val(), t);
 			}
-			cEnv.SetCommandSender(sender);
+            cEnv.SetCommandSender(sender, t));
 
-			String originalLabel = gEnv.GetLabel();
-			if(!(args[1] instanceof CNull)) {
-				gEnv.SetLabel(args[1].val());
-			}
+            String originalLabel = gEnv.GetLabel();
+            if(!(args[1] instanceof CNull)) {
+                gEnv.SetLabel(args[1].val());
+            }
 
-			try {
-				return closure.executeCallable(vals);
-			} finally {
-				cEnv.SetCommandSender(originalSender);
-				gEnv.SetLabel(originalLabel);
-			}
-		}
+            try {
+                closure.execute(vals);
+            } catch (FunctionReturnException e) {
+                return e.getReturn();
+            } finally {
+                cEnv.SetCommandSender(originalSender);
+                gEnv.SetLabel(originalLabel);
+            }
+            return CVoid.VOID;
+        }
 
-		@Override
-		public CHVersion since() {
-			return CHVersion.V3_3_2;
-		}
-	}
+        @Override
+        public CHVersion since() {
+            return CHVersion.V3_3_2;
+        }
+    }
 }
