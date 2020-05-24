@@ -8,6 +8,7 @@ import com.laytonsmith.core.exceptions.CRE.CREThrowable;
 import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.functions.AbstractFunction;
 
+import com.laytonsmith.core.constructs.CNull;
 import com.laytonsmith.core.constructs.CClosure;
 import com.laytonsmith.core.exceptions.CRE.CRECastException;
 import com.laytonsmith.core.environments.CommandHelperEnvironment;
@@ -56,31 +57,37 @@ public class Functions {
 
         @Override
         public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-            if(!(args[args.length - 1] instanceof CClosure)) {
-                throw new CRECastException("Only a closure (created from the closure function) can be sent to executeas()", t);
-            }
-            Construct[] vals = new Construct[args.length - 3];
-            System.arraycopy(args, 2, vals, 0, args.length - 3);
-            CClosure closure = (CClosure) args[args.length - 1];
-            CommandHelperEnvironment cEnv = closure.getEnv().getEnv(CommandHelperEnvironment.class);
-            GlobalEnv gEnv = closure.getEnv().getEnv(GlobalEnv.class);
+            if(!(args[args.length - 1].isInstanceOf(CClosure.TYPE))) {
+				throw new CRECastException("Only a closure (created from the closure function) can be sent to executeas()", t);
+			}
+			Mixed[] vals = new Mixed[args.length - 3];
+			System.arraycopy(args, 2, vals, 0, args.length - 3);
+			CClosure closure = (CClosure) args[args.length - 1];
+			CommandHelperEnvironment cEnv = closure.getEnv().getEnv(CommandHelperEnvironment.class);
+			GlobalEnv gEnv = closure.getEnv().getEnv(GlobalEnv.class);
 
-            MCCommandSender originalSender = cEnv.GetCommandSender();
-            cEnv.SetCommandSender(Static.GetPlayer(args[0].val(), t));
+			MCCommandSender originalSender = cEnv.GetCommandSender();
+			MCCommandSender sender;
+			if(args[0].val().equals(Static.getConsoleName())) {
+				sender = Static.getServer().getConsole();
+			} else if (args[0] instanceof CNull) {
+				sender = originalSender;
+            } else {
+				sender = Static.GetPlayer(args[0].val(), t);
+			}
+			cEnv.SetCommandSender(sender);
 
-            String originalLabel = gEnv.GetLabel();
-            if(!(args[1] instanceof CNull)) {
-                gEnv.SetLabel(args[1].val());
-            }
+			String originalLabel = gEnv.GetLabel();
+			if(!(args[1] instanceof CNull)) {
+				gEnv.SetLabel(args[1].val());
+			}
 
-            try {
-                closure.execute(vals);
-            } catch (FunctionReturnException e) {
-                return e.getReturn();
-            } finally {
-                cEnv.SetCommandSender(originalSender);
-                gEnv.SetLabel(originalLabel);
-            }
+			try {
+				return closure.executeCallable(vals);
+			} finally {
+				cEnv.SetCommandSender(originalSender);
+				gEnv.SetLabel(originalLabel);
+			}
             return CVoid.VOID;
         }
 
