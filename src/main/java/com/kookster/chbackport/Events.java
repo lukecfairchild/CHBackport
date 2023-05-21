@@ -1,7 +1,7 @@
 package com.kookster.chbackport;
 
 import com.laytonsmith.abstraction.MCPlayer;
-import com.laytonsmith.abstraction.events.MCConsoleCommandEvent;
+import com.laytonsmith.abstraction.events.MCServerCommandEvent;
 import com.laytonsmith.annotations.api;
 import com.laytonsmith.annotations.event;
 import com.laytonsmith.core.CHVersion;
@@ -27,7 +27,7 @@ import java.util.Map;
 public class Events {
 
     @event
-    public void triggerServerCommand(MCConsoleCommandEvent event){
+    public void triggerServerCommand(MCServerCommandEvent event){
         EventUtils.TriggerListener(Driver.SERVER_COMMAND, "server_command", event);
     }
 
@@ -59,8 +59,8 @@ public class Events {
         }
 
         public boolean matches(Map<String, Construct> prefilter, BindableEvent e) throws PrefilterNonMatchException {
-            if (e instanceof MCConsoleCommandEvent) {
-                MCConsoleCommandEvent event = (MCConsoleCommandEvent) e;
+            if (e instanceof MCServerCommandEvent) {
+                MCServerCommandEvent event = (MCServerCommandEvent) e;
                 String command = event.getCommand();
                 if(prefilter.containsKey("command") && !command.equals(event.getCommand())){
                     return false;
@@ -86,14 +86,14 @@ public class Events {
             MCPlayer player = Static.GetPlayer(manualObject.get("player", t), t);
             String command = manualObject.get("command", t).nval();
 
-            BindableEvent e = EventBuilder.instantiate(MCConsoleCommandEvent.class,
+            BindableEvent e = EventBuilder.instantiate(MCServerCommandEvent.class,
                 player, command);
             return e;
         }
 
         public Map<String, Construct> evaluate(BindableEvent e) throws EventException {
-            if (e instanceof MCConsoleCommandEvent) {
-                MCConsoleCommandEvent event = (MCConsoleCommandEvent) e;
+            if (e instanceof MCServerCommandEvent) {
+                MCServerCommandEvent event = (MCServerCommandEvent) e;
                 Map<String, Construct> map = evaluate_helper(e);
                 //Fill in the event parameters
                 map.put("command", new CString(event.getCommand(), Target.UNKNOWN));
@@ -108,13 +108,13 @@ public class Events {
 
                 return map;
             } else {
-                throw new EventException("Cannot convert e to MCConsoleCommandEvent");
+                throw new EventException("Cannot convert e to MCServerCommandEvent");
             }
         }
 
         public boolean modifyEvent(String key, Construct value, BindableEvent event) {
-            if (event instanceof MCConsoleCommandEvent) {
-                MCConsoleCommandEvent e = (MCConsoleCommandEvent) event;
+            if (event instanceof MCServerCommandEvent) {
+                MCServerCommandEvent e = (MCServerCommandEvent) event;
 
                 if("command".equals(key)){
                     e.setCommand(value.val());
