@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sk89q</groupId>
 	<artifactId>chbackport</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<name>CHBackport</name>
 	<description>CHBackport is an extension to CommandHelper, which adds a event and function to older versions of commandhelper.</description>
 	<inceptionYear>2018</inceptionYear>
@@ -41,21 +41,14 @@
 
 		<!-- Repository for Bukkit -->
 		<repository>
-			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>bukkit-maven</id>
-			<url>http://repo.bukkit.org/content/repositories/releases/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<id>spigot-repo</id>
+			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
 		</repository>
 
 		<!-- Other repositories -->
 		<repository>
 			<id>maven-central</id>
-			<url>http://repo1.maven.org/maven2/</url>
+			<url>https://repo.maven.apache.org/maven2/</url>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -63,7 +56,7 @@
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>commandhelper</artifactId>
-			<version>3.3.2-SNAPSHOT</version>
+			<version>3.3.2</version>
 		</dependency>
 
 		<!-- Test libraries -->
@@ -139,7 +132,18 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.7.0</version>
+				<configuration>
+					<showDeprecation>true</showDeprecation>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArgs>
+						<arg>-XDignore.symbol.file</arg>
+						<arg>-parameters</arg>
+					</compilerArgs>
+					<fork>true</fork>
+					<optimize>true</optimize>
+				</configuration>
 			</plugin>
 
 			<!-- JAR creation plugin -->
