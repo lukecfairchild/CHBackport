@@ -26,11 +26,6 @@ import java.util.Map;
  */
 public class Events {
 
-    @event
-    public void triggerServerCommand(MCServerCommandEvent event){
-        EventUtils.TriggerListener(Driver.SERVER_COMMAND, "server_command", event);
-    }
-
     @api
     public static class server_command extends AbstractEvent {
 
@@ -81,7 +76,7 @@ public class Events {
             return false;
         }
 
-	@Override
+		@Override
         public BindableEvent convert(CArray manualObject, Target t) {
             MCPlayer player = Static.GetPlayer(manualObject.get("player", t), t);
             String command = manualObject.get("command", t).nval();
