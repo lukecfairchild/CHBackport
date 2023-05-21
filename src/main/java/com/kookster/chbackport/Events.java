@@ -3,7 +3,6 @@ package com.kookster.chbackport;
 import com.laytonsmith.abstraction.MCPlayer;
 import com.laytonsmith.abstraction.events.MCServerCommandEvent;
 import com.laytonsmith.annotations.api;
-import com.laytonsmith.annotations.event;
 import com.laytonsmith.core.CHVersion;
 import com.laytonsmith.core.Static;
 import com.laytonsmith.core.constructs.CArray;
