@@ -45,19 +45,6 @@
 			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
 		</repository>
 
-		<!-- Repository for Bukkit -->
-		<repository>
-			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>bukkit-maven</id>
-			<url>http://repo.bukkit.org/content/repositories/releases/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-
 		<!-- Other repositories -->
 		<repository>
 			<id>maven-central</id>
@@ -69,7 +56,7 @@
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>commandhelper</artifactId>
-			<version>3.3.2-SNAPSHOT</version>
+			<version>3.3.2</version>
 		</dependency>
 
 		<!-- Test libraries -->
